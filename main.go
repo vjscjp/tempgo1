@@ -36,6 +36,9 @@ func main() {
 	pwd := os.Getenv("MARATHON_PASS")
 	
 	r := gin.Default()
+	r.GET("/",func(c *gin.Context){
+		c.JSON(200,gin.H{"msg":"ok"})
+	})
 	auth := f.HttpBasicAuth{user, pwd}
 	client, err := f.NewClient(url, &auth, &tls.Config{InsecureSkipVerify: true})
 	if err != nil {
@@ -94,5 +97,5 @@ func main() {
 			return
 		}	
 	})
-	r.Run()
+	r.Run(":8888")
 }
